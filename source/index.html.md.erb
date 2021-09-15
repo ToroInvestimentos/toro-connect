@@ -65,7 +65,7 @@ https://conta.toroinvestimentos.com.br/oauth/authorize
 Parâmetro | Valor | Descrição
 --------- | ------- | -----------
 client_id | {Código fornecido pela Toro Connect} | Identificador do parceiro
-scope | {escopos separados por vírgula [URL encoded]} | openid (obrigatório); email, profile, accounts são opcionais
+scope | {escopos separados por espaço [URL encoded]} | openid (obrigatório); email, profile, accounts são opcionais
 response_type | code | Valor padrão para este parâmetro
 redirect_uri | https://url-de-callback-do-parceiro.com  | URL de callback do parceiro
 code_challenge | {código gerado a partir do code_verifier} | [BASE64URL-ENCODE(SHA256(ASCII(code_verifier)))](https://datatracker.ietf.org/doc/html/rfc7636#section-4.2)
