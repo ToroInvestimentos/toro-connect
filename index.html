@@ -320,6 +320,9 @@
             <a href="#login-com-a-toro" class="toc-h1 toc-link" data-title="Login com a Toro">Login com a Toro</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#troca-de-informacoes-entre-parceiro-e-toro" class="toc-h2 toc-link" data-title="Troca de informações entre Parceiro e Toro">Troca de informações entre Parceiro e Toro</a>
+                  </li>
+                  <li>
                     <a href="#toro-connect-oauth2-openid-connect" class="toc-h2 toc-link" data-title="Toro Connect (OAuth2 + OpenId Connect)">Toro Connect (OAuth2 + OpenId Connect)</a>
                   </li>
                   <li>
@@ -347,7 +350,45 @@
 <p>Essa documentação é destinada a parceiros que desejam oferecer uma experiência de integração e Login com a Toro.</p>
 
 <p>Entre em contato com <a href="mailto:parceiros@toroinvestimentos.com.br">parceiros@toroinvestimentos.com.br</a> para opter seu client_id e credenciais necessárias para integração.</p>
-<h1 id='login-com-a-toro'>Login com a Toro</h1><h2 id='toro-connect-oauth2-openid-connect'>Toro Connect (OAuth2 + OpenId Connect)</h2>
+<h1 id='login-com-a-toro'>Login com a Toro</h1><h2 id='troca-de-informacoes-entre-parceiro-e-toro'>Troca de informações entre Parceiro e Toro</h2>
+<p>Para configurar a integração entre parceiro e Toro Connect, alguns dados são necessários de ambos os lados.</p>
+
+<p>O parceiro deve preparar um endpoint de callback que receberá um GET do provedor de autenticação Toro. Além da dessa url, chamada de <code>redirect_uri</code>, o parceiro também deve fornecer:</p>
+
+<table><thead>
+<tr>
+<th>Dado</th>
+<th>Descrição</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>client_uri</td>
+<td>URL de callback do parceiro</td>
+</tr>
+<tr>
+<td>client_name</td>
+<td>Nome do parceiro que aparecerá na tela de login</td>
+</tr>
+</tbody></table>
+
+<p>A Toro irá fornecer ao parceiro os seguintes dados:</p>
+
+<table><thead>
+<tr>
+<th>Dado</th>
+<th>Descrição</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>client_id</td>
+<td>Identificador do parceiro usado durante o fluxo</td>
+</tr>
+<tr>
+<td>client_secret</td>
+<td>Segredo do parceiro usado para recuperar o id_token</td>
+</tr>
+</tbody></table>
+<h2 id='toro-connect-oauth2-openid-connect'>Toro Connect (OAuth2 + OpenId Connect)</h2>
 <p>O fluxo de autenticação com a Toro segue o protocolo <a href="https://tools.ietf.org/html/rfc6749">OAuth 2.0</a> juntamente com protocolo <a href="https://openid.net/connect/">OpenID Connect</a> na camada de identidade, através de uma <a href="https://github.com/panva/node-oidc-provider">biblioteca certificada</a> e vastamente utilizada no mercado.</p>
 
 <p>O Fluxo se dará da seguinte maneira:</p>
@@ -578,7 +619,7 @@ Os seguintes cabeçalhos devem estar presentes na resposta da URL de callback:
 <p>Abaixo uma lista de bibliotecas certificadas:</p>
 <h3 id='net-core'>.Net Core</h3>
 <ul>
-<li>[IdentityModel.OidcClient 2.0]https://github.com/IdentityModel/IdentityModel.OidcClient)</li>
+<li><a href="https://github.com/IdentityModel/IdentityModel.OidcClient">IdentityModel.OidcClient 2.0</a></li>
 </ul>
 <h3 id='javascript'>Javascript</h3>
 <ul>
