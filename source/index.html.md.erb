@@ -29,6 +29,25 @@ Entre em contato com [parceiros@toroinvestimentos.com.br](mailto:parceiros@toroi
 
 # Login com a Toro
 
+## Troca de informações entre Parceiro e Toro
+
+Para configurar a integração entre parceiro e Toro Connect, alguns dados são necessários de ambos os lados.
+
+O parceiro deve preparar fornecer:
+
+Dado | Descrição
+---------   | ------- 
+client_uri  | URL de callback do parceiro
+client_name | Nome do parceiro que aparecerá na tela de login
+
+A Toro irá fornecer ao parceiro os seguintes dados:
+
+Dado | Descrição
+---------   | ------- 
+client_id  | Identificador do parceiro usado durante o fluxo
+client_secret | Segredo do parceiro usado para recuperar o id_token
+
+
 ## Toro Connect (OAuth2 + OpenId Connect)
 
 O fluxo de autenticação com a Toro segue o protocolo [OAuth 2.0](https://tools.ietf.org/html/rfc6749) juntamente com protocolo [OpenID Connect](https://openid.net/connect/) na camada de identidade, através de uma [biblioteca certificada](https://github.com/panva/node-oidc-provider) e vastamente utilizada no mercado.
@@ -222,7 +241,7 @@ Ao lado está um exemplo de retorno com todos os escopos apresentados.
 Abaixo uma lista de bibliotecas certificadas:
 
 ### .Net Core
-* [IdentityModel.OidcClient 2.0]https://github.com/IdentityModel/IdentityModel.OidcClient)
+* [IdentityModel.OidcClient 2.0](https://github.com/IdentityModel/IdentityModel.OidcClient)
 
 ### Javascript
 * [node openid-client](https://www.npmjs.com/package/openid-client)
