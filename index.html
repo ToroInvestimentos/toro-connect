@@ -329,6 +329,9 @@
                     <a href="#escopos-scopes" class="toc-h2 toc-link" data-title="Escopos (Scopes)">Escopos (Scopes)</a>
                   </li>
                   <li>
+                    <a href="#id_token-decodificado" class="toc-h2 toc-link" data-title="id_token decodificado">id_token decodificado</a>
+                  </li>
+                  <li>
                     <a href="#openid-client" class="toc-h2 toc-link" data-title="OpenID Client">OpenID Client</a>
                   </li>
                   <li>
@@ -531,6 +534,40 @@ Os seguintes cabeçalhos devem estar presentes na resposta da URL de callback:
 <td>Valor aleatório gerado anteriormente, esse código é utilizado também para criar o code_challenge</td>
 </tr>
 </tbody></table>
+<h3 id='resposta-da-requisicao'>Resposta da requisição</h3>
+<table><thead>
+<tr>
+<th>Propriedade</th>
+<th>Tipo</th>
+<th>Descrição</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>access_token</td>
+<td>string</td>
+<td>Token de acesso</td>
+</tr>
+<tr>
+<td>expires_in</td>
+<td>int</td>
+<td>tempo de expiração do id_token em minutos</td>
+</tr>
+<tr>
+<td>id_token</td>
+<td>string</td>
+<td>Contém as informações requiridas nos escopos, expira sempre as 23h59min do dia da requisição</td>
+</tr>
+<tr>
+<td>scope</td>
+<td>string</td>
+<td>Escopos informados para recuperação de informações</td>
+</tr>
+<tr>
+<td>token_type</td>
+<td>string</td>
+<td>Tipo do access_token</td>
+</tr>
+</tbody></table>
 <h2 id='escopos-scopes'>Escopos (Scopes)</h2>
 <p>Ao logar com a Toro, é possível informar três escopos - além do openid, que é obrigatório. Eles são:</p>
 
@@ -544,10 +581,8 @@ Os seguintes cabeçalhos devem estar presentes na resposta da URL de callback:
 <p>Ao informar email nos escopos</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email@exemplo.com"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"email_verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+  </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email@exemplo.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"email_verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Informando email nos escopos, será possível recuperar os seguintes dados do id_token:</p>
@@ -556,14 +591,12 @@ Os seguintes cabeçalhos devem estar presentes na resposta da URL de callback:
 <p>Ao informar profile nos escopos</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"birthdate"</span><span class="p">:</span><span class="s2">"2000-01-01T02:00:00.000Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"gender"</span><span class="p">:</span><span class="s2">"male"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"locale"</span><span class="p">:</span><span class="s2">"pt-BR"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"João da Silva"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="s2">"2021-09-02T18:43:40.000Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"zoneinfo"</span><span class="p">:</span><span class="s2">"America/Sao_Paulo"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+  </span><span class="nl">"birthdate"</span><span class="p">:</span><span class="s2">"2000-01-01T02:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"gender"</span><span class="p">:</span><span class="s2">"male"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"locale"</span><span class="p">:</span><span class="s2">"pt-BR"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"João da Silva"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="s2">"2021-09-02T18:43:40.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"zoneinfo"</span><span class="p">:</span><span class="s2">"America/Sao_Paulo"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Profile traz as seguintes informações do usuário: </p>
@@ -574,43 +607,124 @@ Os seguintes cabeçalhos devem estar presentes na resposta da URL de callback:
 <p>Ao informar accounts nos escopos</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"accounts"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
-        </span><span class="nl">"main"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"47157"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"checkDigit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
-      </span><span class="p">}]</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+  </span><span class="nl">"accounts"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+    </span><span class="nl">"main"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"47157"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"checkDigit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
+  </span><span class="p">}]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='exemplo'>Exemplo</h3>
 <blockquote>
 <p>Exemplo de um id_token decodificado, com todos os escopos apresentados</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email@exemplo.com"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"email_verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"birthdate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2000-01-01T02:00:00.000Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"male"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pt-BR"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"João da Silva"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-09-02T18:43:40.000Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"zoneinfo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"America/Sao_Paulo"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"accounts"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
-      </span><span class="nl">"main"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"47157"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"checkDigit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
-    </span><span class="p">}],</span><span class="w">
-    </span><span class="nl">"at_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yaP5fqQGzK4pzwiyFewcRg"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"aud"</span><span class="p">:</span><span class="w"> </span><span class="s2">"efc6f9b8827d4bceac2deb42dd89c362"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"exp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1631564411</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"iat"</span><span class="p">:</span><span class="w"> </span><span class="mi">1631564187</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"iss"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://conta.toroinvestimentos.com.br"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+  </span><span class="nl">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email@exemplo.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"email_verified"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"birthdate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2000-01-01T02:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"male"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pt-BR"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"João da Silva"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-09-02T18:43:40.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"zoneinfo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"America/Sao_Paulo"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"accounts"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+    </span><span class="nl">"main"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"47157"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"checkDigit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="w">
+  </span><span class="p">}],</span><span class="w">
+  </span><span class="nl">"at_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yaP5fqQGzK4pzwiyFewcRg"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"aud"</span><span class="p">:</span><span class="w"> </span><span class="s2">"efc6f9b8827d4bceac2deb42dd89c362"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"exp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1631564411</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"iat"</span><span class="p">:</span><span class="w"> </span><span class="mi">1631564187</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"iss"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://conta.toroinvestimentos.com.br"</span><span class="w">  
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Ao lado está um exemplo de retorno com todos os escopos apresentados.</p>
+<h2 id='id_token-decodificado'>id_token decodificado</h2>
+<p>Na tabela abaixo é apresentado as propriedades presentes no id_token decodificado, assumindo que todos os escopos foram informados.
+Além dos campos abaixo, existem outros campos padrão do openid, a definição de cada um pode ser conferida <a href="https://openid.net/specs/openid-connect-core-1_0.html#IDToken">aqui</a>.</p>
+
+<table><thead>
+<tr>
+<th>Propriedade</th>
+<th>Tipo</th>
+<th>Exemplo</th>
+<th>Descrição</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>&quot;email@exemplo.com&quot;</td>
+<td>Endereço de e-mail do usuário</td>
+</tr>
+<tr>
+<td>email_verified</td>
+<td>boolean</td>
+<td>true</td>
+<td>Se a conta é verificada ou não</td>
+</tr>
+<tr>
+<td>birthdate</td>
+<td>string</td>
+<td>&quot;2000-01-01T02:00:00.000Z&quot;</td>
+<td>Data de nascimento (ISO 8601)</td>
+</tr>
+<tr>
+<td>gender</td>
+<td>string</td>
+<td>&quot;male&quot;, &quot;female&quot; ou &quot;not_declared&quot;</td>
+<td>Gênero do usuário</td>
+</tr>
+<tr>
+<td>locale</td>
+<td>string</td>
+<td>&quot;pt-BR&quot;</td>
+<td>Nacionalidade do usuário</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>&quot;João da Silva&quot;</td>
+<td>Nome do usuário</td>
+</tr>
+<tr>
+<td>updated_at</td>
+<td>string</td>
+<td>&quot;2021-09-02T18:43:40.000Z&quot;</td>
+<td>Data da ultima atualização cadastral (ISO 8601)</td>
+</tr>
+<tr>
+<td>zoneinfo</td>
+<td>string</td>
+<td>&quot;America/Sao_Paulo&quot;</td>
+<td>Fuso horário do usuário</td>
+</tr>
+<tr>
+<td>accounts</td>
+<td>array</td>
+<td>[{ &quot;main&quot;: true, &quot;number&quot;: &quot;12345&quot;, &quot;checkDigit&quot;: &quot;9&quot; }]</td>
+<td>Lista de contas de um usuário. <strong>Se o usuário não possuir conta, o array é retornado vazio</strong></td>
+</tr>
+<tr>
+<td>accounts[index].main</td>
+<td>boolean</td>
+<td>true</td>
+<td>Indicador se é a conta principal ou não</td>
+</tr>
+<tr>
+<td>accounts[index].number</td>
+<td>string</td>
+<td>&quot;12345&quot;</td>
+<td>Número da conta do usuário sem o dígito</td>
+</tr>
+<tr>
+<td>accounts[index].checkDigit</td>
+<td>string</td>
+<td>&quot;9&quot;</td>
+<td>Dígito da conta do usuário, para obter o número completo, concatene number e checkDigit. Ex (&quot;123459&quot;)</td>
+</tr>
+</tbody></table>
 <h2 id='openid-client'>OpenID Client</h2>
 <aside class="notice">
 É fortemente aconselhado o uso de um OpenID Client certificado para integrar ao Toro Connect.
