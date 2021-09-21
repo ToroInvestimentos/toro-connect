@@ -148,8 +148,8 @@ code_verifier | {código aleatório} | Valor aleatório gerado anteriormente, es
 Propriedade | Tipo | Descrição
 --------- | ------- | -----------
 access_token | string | Token de acesso
-expires_in | int | tempo de expiração do id_token em minutos
-id_token | string | Contém as informações requiridas nos escopos, expira sempre as 23h59min do dia da requisição
+expires_in | int | tempo de expiração do access_token em minutos
+id_token | string | Contém as informações requiridas nos escopos
 scope | string  | Escopos informados para recuperação de informações
 token_type | string  | Tipo do access_token
 
@@ -237,7 +237,6 @@ Ao lado está um exemplo de retorno com todos os escopos apresentados.
 ## id_token decodificado
 
 Na tabela abaixo é apresentado as propriedades presentes no id_token decodificado, assumindo que todos os escopos foram informados.
-Além dos campos abaixo, existem outros campos padrão do openid, a definição de cada um pode ser conferida [aqui](https://openid.net/specs/openid-connect-core-1_0.html#IDToken).
 
 Propriedade | Tipo | Exemplo | Descrição
 --------- | ------- | -------- | -------
@@ -253,7 +252,12 @@ accounts | array | [{ "main": true, "number": "12345", "checkDigit": "9" }] | Li
 accounts[index].main | boolean | true | Indicador se é a conta principal ou não
 accounts[index].number | string | "12345" | Número da conta do usuário sem o dígito
 accounts[index].checkDigit | string | "9" | Dígito da conta do usuário, para obter o número completo, concatene number e checkDigit. Ex ("123459")
-  
+at_hash | string |  | Hash do access_token
+aud | string |  | Audiência. É o valor do client_id que está requisitando as informações
+exp | number | 1632257462 | Tempo de expiração do id_token. Após esse período, o id_token <strong>não deve ser aceito</strong> para processamento
+iat | number | 1632257250 | Valor que representa quando o JWT foi requisitado
+iss | string | 'https://conta.toroinvestimentos.com.br' | Provedor de autorização
+
 ## OpenID Client
 
 <aside class="notice">
