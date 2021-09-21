@@ -550,12 +550,12 @@ Os seguintes cabeçalhos devem estar presentes na resposta da URL de callback:
 <tr>
 <td>expires_in</td>
 <td>int</td>
-<td>tempo de expiração do id_token em minutos</td>
+<td>tempo de expiração do access_token em minutos</td>
 </tr>
 <tr>
 <td>id_token</td>
 <td>string</td>
-<td>Contém as informações requiridas nos escopos, expira sempre as 23h59min do dia da requisição</td>
+<td>Contém as informações requiridas nos escopos</td>
 </tr>
 <tr>
 <td>scope</td>
@@ -723,6 +723,36 @@ Além dos campos abaixo, existem outros campos padrão do openid, a definição 
 <td>string</td>
 <td>&quot;9&quot;</td>
 <td>Dígito da conta do usuário, para obter o número completo, concatene number e checkDigit. Ex (&quot;123459&quot;)</td>
+</tr>
+<tr>
+<td>at_hash</td>
+<td>string</td>
+<td></td>
+<td>Hash do access_token</td>
+</tr>
+<tr>
+<td>aud</td>
+<td>string</td>
+<td></td>
+<td>Audiência. É o valor do client_id que está requisitando as informações</td>
+</tr>
+<tr>
+<td>exp</td>
+<td>number</td>
+<td>1632257462</td>
+<td>Tempo de expiração do id_token. Após esse período, o id_token <strong>não deve ser aceito</strong> para processamento</td>
+</tr>
+<tr>
+<td>iat</td>
+<td>number</td>
+<td>1632257250</td>
+<td>Valor que representa quando o JWT foi requisitado</td>
+</tr>
+<tr>
+<td>iss</td>
+<td>string</td>
+<td>&#39;https://conta.toroinvestimentos.com.br&#39;</td>
+<td>Provedor de autorização</td>
 </tr>
 </tbody></table>
 <h2 id='openid-client'>OpenID Client</h2>
